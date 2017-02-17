@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.redis</groupId>
-    <artifactId>redis</artifactId>
+    <artifactId>redis-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>redis-service</artifactId>
