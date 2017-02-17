@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration SYSTEM "classpath://org/hibernate/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+<session-factory>
+	<property name="query.substitutions">true 1, false 0</property>
+	<!-- <property name="hibernate.hbm2ddl.auto">create</property> -->
+	<!-- Performance related -->
+	<!-- <property name="jdbc.fetch_size">101</property>
+	<property name="jdbc.batch_size">102</property> -->
+	
+	<property name="hibernate.cache.use_second_level_cache">true</property>
+	<property name="hibernate.cache.use_query_cache">true</property>
+	<!--hibernate4-->
+	<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+	<!--其他版本的hibernate-->
+	<!-- <property name="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</property> -->
+	
+	<property name="hibernate.max_fetch_depth">5</property>
+	<!-- 	<property name="hbm2ddl.auto" >update</property>	 -->
+<!-- 	<property name="dialect">org.hibernate.dialect.OracleDialect</property> -->
+	<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+	<property name="connection.useUnicode">true</property>
+	<property name="connection.characterEncoding">UTF-8</property>
+	<property name="show_sql">true</property>
+</session-factory>
+</hibernate-configuration>
