@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.redis</groupId>
-  <artifactId>redis-root</artifactId>
+  <artifactId>spring-redis</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>redis-root</name>
+  <name>spring-redis</name>
   <modules>
   	<module>redis-persistence</module>
   	<module>redis-service</module>

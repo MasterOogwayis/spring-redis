@@ -4,20 +4,14 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.redis</groupId>
-    <artifactId>redis-root</artifactId>
+    <artifactId>spring-redis</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>redis-service</artifactId>
+  <artifactId>redis-persistence</artifactId>
   
   
   <dependencies>
-  	
-  	<dependency>
-  		<groupId>com.redis</groupId>
-  		<artifactId>redis-persistence</artifactId>
-  		<version>${project.version}</version>
-  	</dependency>
-  	
+  
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
