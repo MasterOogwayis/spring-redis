@@ -11,10 +11,10 @@ import org.springframework.util.StringUtils;
 import com.redis.persistence.cache.BaseValueCache;
 
 public class RedisCache implements Cache{
-	
+
     @Resource(name = "baseRedisCache")
     private BaseValueCache<String, Object> baseCache;
-	
+
     
     
     public BaseValueCache<String, Object> getBaseCache() {
@@ -28,23 +28,23 @@ public class RedisCache implements Cache{
     /** 
      * 缓存名称 
      */ 
-	private String name;
-	
-	/** 
+    private String name;
+
+    /**
      * 超时时间 
      */  
     private Long timeout = 1000L;
-	
-	public void setName(String name) {  
+
+    public void setName(String name) {
         this.name = name;    
     }  
-	
-	@Override
-	public String getName() {
-		return this.name;
-	}
-	
-	public long getTimeout() {
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    public long getTimeout() {
         return timeout;
     }
 
@@ -53,20 +53,20 @@ public class RedisCache implements Cache{
     }
 
     @Override
-	public Object getNativeCache() {
-		return this.baseCache;
-	}
+    public Object getNativeCache() {
+        return this.baseCache;
+    }
 
-	@Override
-	public ValueWrapper get(Object key) {
-	    Object object = this.baseCache.get(key.toString());  
-	    return (object != null ? new SimpleValueWrapper(object) : null); 
-	}
-
-	@SuppressWarnings("unchecked")
     @Override
-	public <T> T get(Object key, Class<T> type) {
-	    if (StringUtils.isEmpty(key) || null == type) {  
+    public ValueWrapper get(Object key) {
+        Object object = this.baseCache.get(key.toString());
+        return (object != null ? new SimpleValueWrapper(object) : null);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> T get(Object key, Class<T> type) {
+        if (StringUtils.isEmpty(key) || null == type) {
             return null;  
         } else {  
             Object object = this.baseCache.get(key.toString());    
@@ -76,27 +76,27 @@ public class RedisCache implements Cache{
                 return null;  
             }  
         } 
-	}
+    }
 
-	@Override
-	public void put(Object key, Object value) {System.err.println("put");
+    @Override
+    public void put(Object key, Object value) {System.err.println("put");
         this.baseCache.set(key.toString(), value, timeout, TimeUnit.SECONDS);
-	}
+    }
 
-	@Override
-	public ValueWrapper putIfAbsent(Object key, Object value) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public ValueWrapper putIfAbsent(Object key, Object value) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void evict(Object key) {
-		this.baseCache.del(key.toString());
-	}
+    @Override
+    public void evict(Object key) {
+        this.baseCache.del(key.toString());
+    }
 
-	@Override
-	public void clear() {
-		this.baseCache.flushDb();
-	}
-	
+    @Override
+    public void clear() {
+        this.baseCache.flushDb();
+    }
+
 }

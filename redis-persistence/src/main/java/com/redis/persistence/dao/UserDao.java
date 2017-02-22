@@ -6,7 +6,7 @@ import com.redis.persistence.dao.base.BaseDao;
 import com.redis.persistence.domain.User;
 
 public interface UserDao<T> extends BaseDao<User> {
-	
-	List<User> findAll();
-	
+
+    List<User> findAll();
+
 }

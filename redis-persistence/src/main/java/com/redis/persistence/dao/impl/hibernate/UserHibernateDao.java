@@ -13,9 +13,9 @@ import com.redis.persistence.domain.User;
 @Repository("userHibernateDao")
 public class UserHibernateDao extends BaseHibernateDao<User> implements UserDao<User>{
 
-	@Override
-	public List<User> findAll() {
-		return this.find("from User");
-	}
-	
+    @Override
+    public List<User> findAll() {
+        return this.find("from User");
+    }
+
 }
