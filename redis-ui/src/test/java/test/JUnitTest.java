@@ -77,7 +77,6 @@ public class JUnitTest {
         //现在访问的时间戳
         Long now = System.currentTimeMillis();
         if (this.baseCache.size(key) == MAX_ACCESS_TIMES) {
-            //往前第10次访问的时间戳
             Long first = (Long) this.baseCache.get(key, 0L);
             access = now - first > MAX_ACCESS_TIME_UNIT * 1000L;
             if (access) { //时间间隔大于允许范围 移除第一个 并将当前时间戳插入到队尾

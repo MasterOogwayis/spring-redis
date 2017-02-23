@@ -38,7 +38,6 @@ public class UserController extends BaseController{
         if(locked){
             this.baseCache.expire("lock", 100, TimeUnit.SECONDS);
         }
-        this.testService.println(1);
         return String.valueOf(locked);
     }
     

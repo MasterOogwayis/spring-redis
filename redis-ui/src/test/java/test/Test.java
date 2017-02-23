@@ -1,9 +1,12 @@
 package test;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
+import java.util.stream.Stream;
 
 import com.redis.persistence.domain.User;
 
@@ -14,14 +17,76 @@ public class Test {
 //    private static final Logger log = LoggerFactory.getLogger(TicketServlce.class);
 
 //    private static final ThreadLocalRandom R = ThreadLocalRandom.current();
-    
+
     public static void main(String[] args) {
 
-        Integer i = 127;
-        Integer j = 127;
-        System.err.println(i);
-        System.err.println(j);
-        System.out.println(i == j);
+
+
+//        File file = new File("C:\\Users\\ZhangShaowei\\Desktop\\I must know.txt");
+//        final Path path = file.toPath();
+//        try (Stream<String> lines = Files.lines(path, StandardCharsets.UTF_8)) {
+//
+//            lines.onClose(() -> System.out.println("Done!")).forEach(line -> System.out.println(line));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+
+//        List<Integer> list = new ArrayList<>();
+//        for(int i = 0;i<1000000;i++) {
+//            list.add(i);
+//        }
+//
+//        Long time = System.currentTimeMillis();
+//        int sum = 0;
+//        for(int i : list){
+//            sum += i;
+//        }
+//        System.out.println(System.currentTimeMillis() - time);
+//        int s = list.stream().mapToInt(i -> i).sum();
+//        System.err.println(System.currentTimeMillis() - time);
+
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
+        list.forEach(System.out::print);
+
+        int sum = list.stream().filter(i -> i%3 == 0).mapToInt(i -> i).sum();
+        System.err.println(sum);
+
+//        Map<Integer, String> map = new HashMap<>();
+//        for (int i = 0; i < 10; i++) {
+//            map.putIfAbsent(i, "val_" + i);
+//        }
+//
+//        map.forEach((id, value) -> System.out.println(value));
+//
+//        map.computeIfPresent(3, (num, value) -> value + num);
+//        System.out.println(map.get(3));
+
+
+
+
+//        Car car = Car.create(Car::new);
+//        List<Car> cars = Arrays.asList(car);
+//        cars.forEach(Car::collide);
+//        cars.forEach(Car::repair);
+//        cars.forEach(car::follow);
+
+
+
+//        Map<String, String> map = new HashMap<>();
+//        map.put("name", "Y2K");
+//        map.put("age", "20");
+//        map.put("gender", "未知生物");
+//        map.put("address", "Mars");
+//
+//        List<String> list = new ArrayList<>();
+//
+//
+//        map.forEach((key, value) -> list.add(value));
+//        list.sort((a, b) -> a.compareTo(b));
+//        System.out.println(list.toString());
+
+
 
 //        Long time = System.currentTimeMillis();
 //        for (int i = 0;i < 100000000;i++){
