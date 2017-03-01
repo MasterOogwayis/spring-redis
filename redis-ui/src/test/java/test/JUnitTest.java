@@ -9,14 +9,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.annotation.Repeat;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 
 
 /**
@@ -29,12 +28,12 @@ import java.util.concurrent.TimeUnit;
 @RunWith(JUnit4ClassRunner.class)//SpringJUnit4ClassRunner.class log4j会随tomcat启动加载，测试则不会 这里需要手动加载
 @Rollback(false)//本机不回滚
 @Transactional(transactionManager = "transactionManager")
-@ContextConfiguration(locations={"classpath:config/spring/app-context-*.xml"})  
+@ContextConfiguration(locations = {"classpath:config/spring/app-context-*.xml"})
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 public class JUnitTest {
 
     private final Log log = Log4jUtils.getLog(this.getClass());
-    
+
     @Resource(name = "baseRedisCache")
     private BaseValueCache<String, Object> baseCache;
 
@@ -55,21 +54,19 @@ public class JUnitTest {
 
 
     @Test
-    @Repeat(5)
-    public void test() throws Exception{
-        User user = this.userService.get(9L);
-        user.setAddress("成都市");
-        this.userService.saveOrUpdate(user);
+//    @Repeat(5)
+    public void test() throws Exception {
+
+
+        List<User> users = this.userService.findAll();
+        users.forEach(user -> System.out.println(user));
+
+
     }
 
 
-
-
-
-
-
     private static final Long MAX_ACCESS_TIMES = 2L;
-    
+
     private static final Long MAX_ACCESS_TIME_UNIT = 10L;
 
     public Boolean accessFrequency(String key) {
@@ -82,7 +79,7 @@ public class JUnitTest {
             if (access) { //时间间隔大于允许范围 移除第一个 并将当前时间戳插入到队尾
                 this.baseCache.leftPop(key);
                 this.baseCache.rightPush(key, now);
-            } 
+            }
         } else { //访问次数未达到指定次数则不验证 ，仅将当前时间戳放入队尾
             this.baseCache.rightPush(key, now);
         }

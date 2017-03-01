@@ -40,7 +40,7 @@ public class UserCacheAspect {
     
     
     
-    @Pointcut("execution(public * com.redis.service.*.*UserService.find*All(..))")
+    @Pointcut("execution(public * com.redis.service.*.UserService.find*All(..))")
     private void userAspect() {
         throw new UnsupportedOperationException();
     }

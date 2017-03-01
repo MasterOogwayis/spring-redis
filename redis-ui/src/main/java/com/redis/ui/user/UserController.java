@@ -25,8 +25,8 @@ public class UserController extends BaseController{
     @Resource(name = "userService")
     private UserService userService;
     
-    @Resource(name = "testService")
-    private TestService testService;
+//    @Resource(name = "testService")
+//    private TestService testService;
     
     
     @Resource(name = "baseRedisCache")

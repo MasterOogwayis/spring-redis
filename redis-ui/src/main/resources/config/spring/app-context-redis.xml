@@ -108,15 +108,22 @@
     <cache:annotation-driven />
     <!-- 缓存管理器 -->
     
-    <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager"
-        p:default-expiration="${redis.expire}">  
-       <constructor-arg ref="redisTemplate" /> 
-       <constructor-arg name="cacheNames">
+    <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
+        <constructor-arg ref="redisTemplate" />
+        <constructor-arg name="cacheNames">
             <list>
                 <value>redisCache</value>
                 <value>listCache</value>
             </list>
-       </constructor-arg>
+        </constructor-arg>
+        <!-- 是否使用前缀 -->
+        <property name="usePrefix" value="true"/>
+        <!-- 默认有效期 -->
+        <property name="defaultExpiration" value="${redis.expire}"/>
+        <!-- 是否事务提交
+        <property name="transactionAware" value="false"/>-->
+        <!-- 是否在容器启动时初始化
+        <property name="loadRemoteCachesOnStartup" value="true"/>-->
    </bean> 
 
 </beans>
