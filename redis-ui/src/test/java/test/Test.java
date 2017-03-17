@@ -6,6 +6,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.stream.Stream;
 
 import com.redis.persistence.domain.User;
@@ -19,8 +21,6 @@ public class Test {
 //    private static final ThreadLocalRandom R = ThreadLocalRandom.current();
 
     public static void main(String[] args) {
-
-
 
 //        File file = new File("C:\\Users\\ZhangShaowei\\Desktop\\I must know.txt");
 //        final Path path = file.toPath();
@@ -40,17 +40,17 @@ public class Test {
 //        Long time = System.currentTimeMillis();
 //        int sum = 0;
 //        for(int i : list){
-//            sum += i;
-//        }
+//        }//            sum += i;
+
 //        System.out.println(System.currentTimeMillis() - time);
 //        int s = list.stream().mapToInt(i -> i).sum();
 //        System.err.println(System.currentTimeMillis() - time);
 
-        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
-        list.forEach(System.out::print);
-
-        int sum = list.stream().filter(i -> i%3 == 0).mapToInt(i -> i).sum();
-        System.err.println(sum);
+//        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
+//        list.forEach(System.out::print);
+//
+//        int sum = list.stream().filter(i -> i % 3 == 0).mapToInt(i -> i).sum();
+//        System.err.println(sum);
 
 //        Map<Integer, String> map = new HashMap<>();
 //        for (int i = 0; i < 10; i++) {
@@ -63,14 +63,11 @@ public class Test {
 //        System.out.println(map.get(3));
 
 
-
-
 //        Car car = Car.create(Car::new);
 //        List<Car> cars = Arrays.asList(car);
 //        cars.forEach(Car::collide);
 //        cars.forEach(Car::repair);
 //        cars.forEach(car::follow);
-
 
 
 //        Map<String, String> map = new HashMap<>();
@@ -85,7 +82,6 @@ public class Test {
 //        map.forEach((key, value) -> list.add(value));
 //        list.sort((a, b) -> a.compareTo(b));
 //        System.out.println(list.toString());
-
 
 
 //        Long time = System.currentTimeMillis();
@@ -104,10 +100,9 @@ public class Test {
 
 
     @SuppressWarnings("unused")
-    private static void testSet(){
-        Jedis jedis =  new Jedis("127.0.0.1",6379);
+    private static void testSet() {
+        Jedis jedis = new Jedis("127.0.0.1", 6379);
 //        jedis.auth(password);
-
 
 
         //User user = new User(1l, "Shaowei Zhang");
@@ -124,10 +119,10 @@ public class Test {
 
 
     @SuppressWarnings("unused")
-    private static void setList(){
-        Jedis jedis =  new Jedis("127.0.0.1",6379);
-        List<String> list = Arrays.asList("123","456","789","asd","fgh","jkl");
-        for(String s : list){
+    private static void setList() {
+        Jedis jedis = new Jedis("127.0.0.1", 6379);
+        List<String> list = Arrays.asList("123", "456", "789", "asd", "fgh", "jkl");
+        for (String s : list) {
             jedis.lpush("list", s);
         }
 
@@ -139,10 +134,10 @@ public class Test {
 
 
     @SuppressWarnings("unused")
-    private static void setMap(){
-        Jedis jedis =  new Jedis("127.0.0.1",6379);
+    private static void setMap() {
+        Jedis jedis = new Jedis("127.0.0.1", 6379);
 
-        Map<String,String> map = new HashMap<String,String>();
+        Map<String, String> map = new HashMap<String, String>();
         map.put("key1", "value1");
         map.put("key2", "value2");
         map.put("key3", "value2");
@@ -153,10 +148,10 @@ public class Test {
 
 
     @SuppressWarnings("unused")
-    private static void getMap(){
-        Jedis jedis =  new Jedis("127.0.0.1",6379);
+    private static void getMap() {
+        Jedis jedis = new Jedis("127.0.0.1", 6379);
 
-        Map<String,String>map = jedis.hgetAll("map");
+        Map<String, String> map = jedis.hgetAll("map");
 
         System.err.println(map.toString());
         jedis.close();

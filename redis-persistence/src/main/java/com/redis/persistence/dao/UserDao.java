@@ -9,4 +9,6 @@ public interface UserDao<T> extends BaseDao<User> {
 
     List<User> findAll();
 
+    Integer get();
+
 }

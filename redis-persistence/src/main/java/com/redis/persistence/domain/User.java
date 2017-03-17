@@ -95,6 +95,11 @@ public class User extends BaseBean{
         super();
     }
 
+    public User(Long id) {
+        super();
+        this.id = id;
+    }
+
 
 
 
