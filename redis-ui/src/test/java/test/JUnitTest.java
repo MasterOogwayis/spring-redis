@@ -12,9 +12,11 @@ import com.redis.persistence.beans.BaseBean;
 import com.redis.persistence.cache.BaseValueCache;
 import com.redis.persistence.domain.User;
 import com.redis.service.user.TestUserService;
+import com.redis.service.user.UserService;
 import com.redis.service.utils.Log4jUtils;
+import com.redis.test.TestService;
 import com.redis.utils.DesBase64For3;
-import com.thread.service.ThreadPoolService;
+import com.redis.utils.ThreadPool;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.junit.Test;
@@ -29,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -79,27 +82,31 @@ public class JUnitTest {
 //    @Resource(name = UserService.SERVICE_NAME)
 //    private UserService userService;
 
-    @Resource(name = "testUserService")
-    private TestUserService userService;
+    @Resource(name = UserService.SERVICE_NAME)
+    private UserService userService;
 
-    @Resource(name = "threadPool")
-    private ThreadPoolService threadPool;
+    @Resource(name = "testService")
+    private TestService testService;
 
 
     @Test
 //    @Repeat(5)
     public void test() throws Exception {
 
-        for (int i = 1; i < 50; i++) {
-            this.threadPool.execute(this::printl, new User(Long.valueOf(i)));
-        }
+//        System.out.println(this.testService.test());
 
+//        for (int i = 1; i < 50; i++) {
+//            this.threadPool.execute(this::printl, new User(Long.valueOf(i)));
+//        }
+
+//        List<User> users = this.userService.findAll();
+//        users.forEach(System.out::print);
 
 //        Converter<String, Integer> converter = Integer::valueOf;
 
 //        Consumer<BaseBean> consumer = JUnitTest::printl;
 
-//        this.threadPool.execute(this::printl, new User());
+        ThreadPool.execute(this::printl, new User(1L));
 
 
 //        this.userService.test();
@@ -123,57 +130,6 @@ public class JUnitTest {
     }
 
 
-    private void des() throws Exception {
-        Date now = new Date();
-        ProductRequest product = new ProductRequest();
-        product.setLineCode("0001");
-        product.setProductCode("NC0001");
-        product.setProductName("测试线路");
-        product.setOperationStartDate(now);
-        product.setOperationEndDate(DateUtils.addDays(now, 5));
-        product.setAheadDay(5);
-        product.setVehicleLevel("大型高一");
-        product.setVehicleType("客车");
-        product.setSeats(29);
-        product.setPrice(1000);
-        product.setInsurance(800000);
-        SaleOrderIntercityRequest data = new SaleOrderIntercityRequest();
-        data.setSupplierNumber("10000005");
-        data.setPurchaseNumber("ASDJAIHJ989987");
-        data.setOpeartor("vdc");
-        data.setProduct(product);
-        data.setVehicleQuantity(2);
-        data.setPassengerQuantity(13);
-        data.setUseDate(now);
-        data.setTimeScope("9:00");
-        data.setAmount(1000);
-        String json = mapper.writeValueAsString(data);
-        System.out.println(json);
-        System.err.println(DesBase64For3.encrypt(json));
-    }
-
-    private void des1() throws Exception {
-        Date now = new Date();
-        OrderRequest data = new OrderRequest();
-        data.setOrderNumber("PI201703151740420011");
-        data.setSupplierNumber("10000005");
-        String json = mapper.writeValueAsString(data);
-        System.out.println(json);
-        System.err.println(DesBase64For3.encrypt(json));
-    }
-
-    private void des2() throws Exception {
-        Date now = new Date();
-        PassengerRequest data = new PassengerRequest();
-        data.setOrderNumber("PI201703132032570008");
-        data.setSupplierNumber("10000005");
-        data.setOpeartor("vdc");
-        data.setRemark("test");
-        data.setPassengers(10);
-        String json = mapper.writeValueAsString(data);
-        System.out.println(json);
-        System.err.println(DesBase64For3.encrypt(json));
-    }
 
 
     private static final Long MAX_ACCESS_TIMES = 2L;
