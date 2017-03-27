@@ -1,6 +1,7 @@
 package test;
 
 import java.io.File;
+import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -12,6 +13,7 @@ import java.util.stream.Stream;
 
 import com.redis.persistence.domain.User;
 
+import com.redis.utils.ThreadPool;
 import redis.clients.jedis.Jedis;
 
 public class Test {
@@ -21,6 +23,9 @@ public class Test {
 //    private static final ThreadLocalRandom R = ThreadLocalRandom.current();
 
     public static void main(String[] args) {
+        Customer customer = new Customer();
+        customer.setName("zsw");
+        ThreadPool.execute(Test::printl, customer);
 
 //        File file = new File("C:\\Users\\ZhangShaowei\\Desktop\\I must know.txt");
 //        final Path path = file.toPath();
@@ -95,6 +100,11 @@ public class Test {
 //        Jedis jedis =  new Jedis("127.0.0.1",6379);
 //        System.err.println(jedis.incr("number"));
 //        jedis.close();
+
+    }
+
+    public static void printl(Serializable customer){
+        System.out.println(((Customer) customer).getName());
 
     }
 
