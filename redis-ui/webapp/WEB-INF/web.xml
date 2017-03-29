@@ -58,7 +58,8 @@
         <param-value>
             classpath:config/spring/app-context-base.xml,
             classpath:config/spring/app-context-hibernate.xml,
-            classpath:config/spring/app-context-redis.xml
+            classpath:config/spring/app-context-redis.xml,
+            classpath:config/spring/app-context-thread-pool.xml
         </param-value>
     </context-param>
 

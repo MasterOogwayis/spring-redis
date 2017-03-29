@@ -1,27 +1,10 @@
 package test;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.redis.api.request.OrderRequest;
-import com.redis.api.request.PassengerRequest;
-import com.redis.api.request.ProductRequest;
-import com.redis.api.request.SaleOrderIntercityRequest;
-import com.redis.persistence.beans.BaseBean;
 import com.redis.persistence.cache.BaseValueCache;
-import com.redis.persistence.domain.User;
-import com.redis.service.user.TestUserService;
-import com.redis.service.user.UserService;
 import com.redis.service.utils.Log4jUtils;
-import com.redis.test.TestService;
-import com.redis.utils.DesBase64For3;
-import com.redis.utils.ThreadPool;
-import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.annotation.Rollback;
@@ -29,12 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 
 /**
@@ -53,20 +31,6 @@ public class JUnitTest {
 
     private final Log log = Log4jUtils.getLog(this.getClass());
 
-    /**
-     * 初始化mapper参数
-     */
-    private ObjectMapper mapper = new ObjectMapper();
-
-    public JUnitTest() {
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); //忽略没有的属性
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true); //允许没有双引号
-        mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true); //允许转义字符
-        mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true); //允许单引号
-        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
-    }
-
     @Resource(name = "baseRedisCache")
     private BaseValueCache<String, Object> baseCache;
 
@@ -82,16 +46,28 @@ public class JUnitTest {
 //    @Resource(name = UserService.SERVICE_NAME)
 //    private UserService userService;
 
-    @Resource(name = UserService.SERVICE_NAME)
-    private UserService userService;
+//    @Resource(name = UserService.SERVICE_NAME)
+//    private UserService userService;
+//
+//    @Resource(name = "testService")
+//    private TestService testService;
 
-    @Resource(name = "testService")
-    private TestService testService;
-
+//    @Resource(name = "threadPool")
+//    private ThreadPoolTaskExecutor threadPool;
 
     @Test
 //    @Repeat(5)
     public void test() throws Exception {
+
+
+//        for (int i = 0;i<100;i++) {
+//            String str = String.valueOf(i + 1);
+//            this.threadPool.execute(() -> {
+//                this.printl(str);
+//            });
+//        }
+
+
 
 //        System.out.println(this.testService.test());
 
@@ -106,7 +82,7 @@ public class JUnitTest {
 
 //        Consumer<BaseBean> consumer = JUnitTest::printl;
 
-        ThreadPool.execute(this::printl, new User(1L));
+//        test.ThreadPool.execute(this::printl, new User(1L));
 
 
 //        this.userService.test();
@@ -119,11 +95,9 @@ public class JUnitTest {
     }
 
 
-    public void printl(BaseBean bean) {
+    public void printl(String str) {
         try {
-            System.out.println("提交第" + bean.getId() + "个任务!");
-            Thread.sleep(2000);
-            System.out.println("running=====" + bean);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
