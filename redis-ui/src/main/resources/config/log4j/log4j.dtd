@@ -36,7 +36,7 @@ element. -->
 
 <!-- By default, debug attribute is "null", meaning that we not do touch -->
 <!-- internal log4j logging settings. The "null" value for the threshold -->
-<!-- attribute can be misleading. The threshold field of a repository	 -->
+<!-- attribute can be misleading. The threshold field of a repository     -->
 <!-- cannot be set to null. The "null" value for the threshold attribute -->
 <!-- simply means don't touch the threshold field, the threshold field   --> 
 <!-- keeps its old value.                                                -->
@@ -72,18 +72,18 @@ element. -->
       rollingPolicy?, triggeringPolicy?, connectionSource?,
       layout?, filter*, appender-ref*)>
 <!ATTLIST appender
-  name 		CDATA 	#REQUIRED
-  class 	CDATA	#REQUIRED
+  name         CDATA     #REQUIRED
+  class     CDATA    #REQUIRED
 >
 
 <!ELEMENT layout (param*)>
 <!ATTLIST layout
-  class		CDATA	#REQUIRED
+  class        CDATA    #REQUIRED
 >
 
 <!ELEMENT filter (param*)>
 <!ATTLIST filter
-  class		CDATA	#REQUIRED
+  class        CDATA    #REQUIRED
 >
 
 <!-- ErrorHandlers can be of any class. They can admit any number of -->
@@ -103,23 +103,23 @@ element. -->
 
 <!ELEMENT param EMPTY>
 <!ATTLIST param
-  name		CDATA   #REQUIRED
-  value		CDATA	#REQUIRED
+  name        CDATA   #REQUIRED
+  value        CDATA    #REQUIRED
 >
 
 
 <!-- The priority class is org.apache.log4j.Level by default -->
 <!ELEMENT priority (param*)>
 <!ATTLIST priority
-  class   CDATA	#IMPLIED
-  value	  CDATA #REQUIRED
+  class   CDATA    #IMPLIED
+  value      CDATA #REQUIRED
 >
 
 <!-- The level class is org.apache.log4j.Level by default -->
 <!ELEMENT level (param*)>
 <!ATTLIST level
-  class   CDATA	#IMPLIED
-  value	  CDATA #REQUIRED
+  class   CDATA    #IMPLIED
+  value      CDATA #REQUIRED
 >
 
 
@@ -128,8 +128,8 @@ element. -->
 <!ELEMENT category (param*,(priority|level)?,appender-ref*)>
 <!ATTLIST category
   class         CDATA   #IMPLIED
-  name		CDATA	#REQUIRED
-  additivity	(true|false) "true"  
+  name        CDATA    #REQUIRED
+  additivity    (true|false) "true"
 >
 
 <!-- If no level element is specified, then the configurator MUST not -->
@@ -137,8 +137,8 @@ element. -->
 <!ELEMENT logger (param*,level?,appender-ref*)>
 <!ATTLIST logger
   class         CDATA   #IMPLIED
-  name		CDATA	#REQUIRED
-  additivity	(true|false) "true"  
+  name        CDATA    #REQUIRED
+  additivity    (true|false) "true"
 >
 
 
@@ -158,8 +158,8 @@ element. -->
 <!-- plugins must have a name and class and can have optional parameters -->
 <!ELEMENT plugin (param*, connectionSource?)>
 <!ATTLIST plugin
-  name 		CDATA 	   #REQUIRED
-  class 	CDATA  #REQUIRED
+  name         CDATA        #REQUIRED
+  class     CDATA  #REQUIRED
 >
 
 <!ELEMENT connectionSource (dataSource?, param*)>
@@ -174,14 +174,14 @@ element. -->
 
 <!ELEMENT triggeringPolicy ((param|filter)*)>
 <!ATTLIST triggeringPolicy
-  name 		CDATA  #IMPLIED
-  class 	CDATA  #REQUIRED
+  name         CDATA  #IMPLIED
+  class     CDATA  #REQUIRED
 >
 
 <!ELEMENT rollingPolicy (param*)>
 <!ATTLIST rollingPolicy
-  name 		CDATA  #IMPLIED
-  class 	CDATA  #REQUIRED
+  name         CDATA  #IMPLIED
+  class     CDATA  #REQUIRED
 >
 
 
@@ -222,16 +222,16 @@ element. -->
 
 <!ELEMENT log4j:locationInfo EMPTY>
 <!ATTLIST log4j:locationInfo
-  class  CDATA	#REQUIRED
-  method CDATA	#REQUIRED
-  file   CDATA	#REQUIRED
-  line   CDATA	#REQUIRED
+  class  CDATA    #REQUIRED
+  method CDATA    #REQUIRED
+  file   CDATA    #REQUIRED
+  line   CDATA    #REQUIRED
 >
 
 <!ELEMENT log4j:properties (log4j:data*)>
 
 <!ELEMENT log4j:data EMPTY>
 <!ATTLIST log4j:data
-  name   CDATA	#REQUIRED
-  value  CDATA	#REQUIRED
+  name   CDATA    #REQUIRED
+  value  CDATA    #REQUIRED
 >

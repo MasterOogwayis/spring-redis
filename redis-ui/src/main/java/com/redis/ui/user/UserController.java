@@ -21,46 +21,46 @@ import com.redis.ui.base.BaseController;
 @Controller
 @RequestMapping("/user")
 public class UserController extends BaseController{
-	
-	@Resource(name = "userService")
-	private UserService userService;
-	
-	@Resource(name = "testService")
-	private TestService testService;
-	
-	
-	@Resource(name = "baseRedisCache")
-	private BaseValueCache<String, Object> baseCache;
-	
-	@RequestMapping
-	public @ResponseBody String test(@RequestParam Integer i) throws Exception{
-		Boolean locked = this.baseCache.setNX("lock", "locked");
-		if(locked){
-			this.baseCache.expire("lock", 1, TimeUnit.SECONDS);
-		}
-		return String.valueOf(locked);
-	}
-	
-	@RequestMapping("/add")
-	public @ResponseBody Object add(HttpServletRequest request) throws Exception{
-		User user = this.convertToBean(request, User.class);
-		userService.save(user);
-		
-		Map<String,Object> message = new HashMap<>();
-		message.put("message", "保存成功");
-		message.put("data", user);
-		return message;
-	}
-	
-	
-	
-	@RequestMapping("/get")
-	public @ResponseBody Object get(@RequestParam Long id) throws Exception{
-		User user = this.userService.get(id);
-		return user;
-	}
-	
-	
-	
-	
+
+    @Resource(name = "userService")
+    private UserService userService;
+
+//    @Resource(name = "testService")
+//    private TestService testService;
+
+
+    @Resource(name = "baseRedisCache")
+    private BaseValueCache<String, Object> baseCache;
+
+    @RequestMapping
+    public @ResponseBody String test(@RequestParam Integer i) throws Exception{
+        Boolean locked = this.baseCache.setNX("lock", "locked");
+        if(locked){
+            this.baseCache.expire("lock", 100, TimeUnit.SECONDS);
+        }
+        return String.valueOf(locked);
+    }
+
+    @RequestMapping("/add")
+    public @ResponseBody Object add(HttpServletRequest request) throws Exception{
+        User user = this.convertToBean(request, User.class);
+        userService.save(user);
+
+        Map<String,Object> message = new HashMap<>();
+        message.put("message", "保存成功");
+        message.put("data", user);
+        return message;
+    }
+
+
+
+    @RequestMapping("/get")
+    public @ResponseBody Object get(@RequestParam Long id) throws Exception{
+        User user = this.userService.get(id);
+        return user;
+    }
+
+
+
+
 }

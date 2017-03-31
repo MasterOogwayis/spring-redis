@@ -11,13 +11,13 @@
 
 
   <dependencies>
-  	
-  	<dependency>
-  		<groupId>com.redis</groupId>
-  		<artifactId>redis-service</artifactId>
-  		<version>${project.version}</version>
-  	</dependency>
-  	
+
+      <dependency>
+          <groupId>com.redis</groupId>
+          <artifactId>redis-service</artifactId>
+          <version>${project.version}</version>
+      </dependency>
+
     
   </dependencies>
   

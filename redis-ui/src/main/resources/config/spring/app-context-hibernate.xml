@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd" >
     
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-		<property name="driverClass"><value>${jdbc.driverClassName}</value></property>
-		<property name="jdbcUrl"><value>${jdbc.url}</value></property>
-		<property name="user"><value>${jdbc.username}</value></property>
-		<property name="password"><value>${jdbc.password}</value></property>
-		<property name="acquireIncrement"><value>1</value></property>
-		<property name="autoCommitOnClose"><value>false</value></property>
-		<property name="forceIgnoreUnresolvedTransactions"><value>false</value></property>
-		<property name="initialPoolSize"><value>1</value></property>
-		<property name="minPoolSize"><value>1</value></property>
-		<property name="maxPoolSize"><value>50</value></property>
-		<property name="maxStatements"><value>0</value></property>
-		<property name="maxIdleTime"><value>0</value></property>
-		<property name="idleConnectionTestPeriod"><value>-1</value></property>
-		<property name="testConnectionOnCheckin"><value>true</value></property>
-		<property name="testConnectionOnCheckout"><value>true</value></property>
-		<property name="numHelperThreads"><value>3</value></property>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass"><value>${jdbc.driverClassName}</value></property>
+        <property name="jdbcUrl"><value>${jdbc.url}</value></property>
+        <property name="user"><value>${jdbc.username}</value></property>
+        <property name="password"><value>${jdbc.password}</value></property>
+        <property name="acquireIncrement"><value>1</value></property>
+        <property name="autoCommitOnClose"><value>false</value></property>
+        <property name="forceIgnoreUnresolvedTransactions"><value>false</value></property>
+        <property name="initialPoolSize"><value>1</value></property>
+        <property name="minPoolSize"><value>1</value></property>
+        <property name="maxPoolSize"><value>50</value></property>
+        <property name="maxStatements"><value>0</value></property>
+        <property name="maxIdleTime"><value>0</value></property>
+        <property name="idleConnectionTestPeriod"><value>-1</value></property>
+        <property name="testConnectionOnCheckin"><value>true</value></property>
+        <property name="testConnectionOnCheckout"><value>true</value></property>
+        <property name="numHelperThreads"><value>3</value></property>
     </bean>
 
-	<!-- Hibernate SessionFactory -->
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:config/hibernate/hibernate.cfg.xml" />
-		<property name="mappingLocations">
-			<list>
-				<value>classpath*:config/hbm/*.hbm.xml</value>
-			</list>
-		</property>
-		<property name="packagesToScan" value="com.redis.persistence.domain" />
-	</bean>
+    <!-- Hibernate SessionFactory -->
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:config/hibernate/hibernate.cfg.xml" />
+        <property name="mappingLocations">
+            <list>
+                <value>classpath*:config/hbm/*.hbm.xml</value>
+            </list>
+        </property>
+        <property name="packagesToScan" value="com.redis.persistence.domain" />
+    </bean>
 
-	<!-- Transaction manager for a single Hibernate SessionFactory -->
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<!--启动spring事务注解功能 -->
-	<tx:annotation-driven transaction-manager="transactionManager" />
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <!-- Transaction manager for a single Hibernate SessionFactory -->
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <!--启动spring事务注解功能 -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="save*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
             <tx:method name="update*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
             <tx:method name="del*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
-        	<tx:method name="get*" propagation="SUPPORTS"/>
-        	<tx:method name="find*" propagation="SUPPORTS"/>
-        	<tx:method name="*" propagation="SUPPORTS"/>
+            <tx:method name="get*" propagation="SUPPORTS"/>
+            <tx:method name="find*" propagation="SUPPORTS"/>
+            <tx:method name="*" propagation="SUPPORTS"/>
         </tx:attributes>
     </tx:advice>
     <aop:config>
@@ -62,10 +62,10 @@
         <aop:advisor advice-ref="txAdvice"
             pointcut-ref="interceptorPointCuts" />
     </aop:config>
-	
-	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate" scope="prototype">
-		<property name="sessionFactory" ref="sessionFactory" />
-		<property name="cacheQueries" value="true" />
-		<property name="queryCacheRegion" value="QUERY" />
-	</bean>
+
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory" />
+        <property name="cacheQueries" value="true" />
+        <property name="queryCacheRegion" value="QUERY" />
+    </bean>
 </beans>
