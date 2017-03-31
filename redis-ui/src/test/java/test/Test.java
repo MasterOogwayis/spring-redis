@@ -1,13 +1,16 @@
 package test;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.redis.persistence.domain.User;
+import com.redis.utils.DesBase64For3;
 import redis.clients.jedis.Jedis;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Test {
 
@@ -15,84 +18,44 @@ public class Test {
 
 //    private static final ThreadLocalRandom R = ThreadLocalRandom.current();
 
-    public static void main(String[] args) {
-        Customer customer = new Customer();
-        customer.setName("zsw");
+    public static void main(String[] args) throws Exception {
 
-//        File file = new File("C:\\Users\\ZhangShaowei\\Desktop\\I must know.txt");
-//        final Path path = file.toPath();
-//        try (Stream<String> lines = Files.lines(path, StandardCharsets.UTF_8)) {
-//
-//            lines.onClose(() -> System.out.println("Done!")).forEach(line -> System.out.println(line));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        ObjectMapper mapper = new ObjectMapper();
 
+        /**
+         * 初始化mapper参数
+         */
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); //忽略没有的属性
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true); //允许没有双引号
+        mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true); //允许转义字符
+        mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true); //允许单引号
+        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
 
-//        List<Integer> list = new ArrayList<>();
-//        for(int i = 0;i<1000000;i++) {
-//            list.add(i);
-//        }
-//
-//        Long time = System.currentTimeMillis();
-//        int sum = 0;
-//        for(int i : list){
-//        }//            sum += i;
-
-//        System.out.println(System.currentTimeMillis() - time);
-//        int s = list.stream().mapToInt(i -> i).sum();
-//        System.err.println(System.currentTimeMillis() - time);
-
-//        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
-//        list.forEach(System.out::print);
-//
-//        int sum = list.stream().filter(i -> i % 3 == 0).mapToInt(i -> i).sum();
-//        System.err.println(sum);
-
-//        Map<Integer, String> map = new HashMap<>();
-//        for (int i = 0; i < 10; i++) {
-//            map.putIfAbsent(i, "val_" + i);
-//        }
-//
-//        map.forEach((id, value) -> System.out.println(value));
-//
-//        map.computeIfPresent(3, (num, value) -> value + num);
-//        System.out.println(map.get(3));
+        Map<String, String> map = new HashMap<>();
+        map.put("supplierNumber", "0023");
+        System.err.println(DesBase64For3.encrypt(mapper.writeValueAsString(map)));
 
 
-//        Car car = Car.create(Car::new);
-//        List<Car> cars = Arrays.asList(car);
-//        cars.forEach(Car::collide);
-//        cars.forEach(Car::repair);
-//        cars.forEach(car::follow);
-
-
-//        Map<String, String> map = new HashMap<>();
-//        map.put("name", "Y2K");
-//        map.put("age", "20");
-//        map.put("gender", "未知生物");
-//        map.put("address", "Mars");
-//
-//        List<String> list = new ArrayList<>();
-//
-//
-//        map.forEach((key, value) -> list.add(value));
-//        list.sort((a, b) -> a.compareTo(b));
-//        System.out.println(list.toString());
-
-
-//        Long time = System.currentTimeMillis();
-//        for (int i = 0;i < 100000000;i++){
-//            ThreadLocalRandom.current().nextInt(10000);
-//            RandomUtils.nextInt(10000);
-//        }
-//        System.err.println(System.currentTimeMillis() - time);
+        Set<String> set = new HashSet<>();
+        set.add("String");
+//        Timer timer = new Timer("hello");
+//        timer.schedule(new PrintTimer(), 1000L, 2000L);
 
 
 //        Jedis jedis =  new Jedis("127.0.0.1",6379);
 //        System.err.println(jedis.incr("number"));
 //        jedis.close();
 
+    }
+
+
+    static class PrintTimer extends TimerTask {
+
+        @Override
+        public void run() {
+            System.out.println(new Date());
+        }
     }
 
     public static void printl(Serializable customer){
